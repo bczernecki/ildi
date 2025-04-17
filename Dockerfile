@@ -26,8 +26,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Install common Python scientific packages
-RUN pip3 install --no-cache-dir numpy pandas xarray netCDF4 matplotlib
+# Upgrade pip and install Python scientific stack
+RUN pip3 install --no-cache-dir --upgrade pip \
+    && pip3 install --no-cache-dir numpy pandas xarray netCDF4 matplotlib
 
 # Create working directory
 WORKDIR /workspace
