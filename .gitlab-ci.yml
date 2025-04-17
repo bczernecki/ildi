@@ -1,0 +1,22 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+  IMAGE_NAME: bczernecki/ildi
+
+stages:
+  - build
+
+before_script:
+  - echo "$DOCKERHUB_PASSWORD" | docker login -u bczernecki --password-stdin
+
+build_and_push:
+  stage: build
+  script:
+    - docker build -t $IMAGE_NAME:latest .
+    - docker push $IMAGE_NAME:latest
+
