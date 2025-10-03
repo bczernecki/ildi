@@ -32,8 +32,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Upgrade pip and install Python scientific stack
-RUN pip3 install --no-cache-dir --upgrade pip \
-    && pip3 install --no-cache-dir numpy pandas xarray netCDF4 matplotlib
+RUN pip3 install --no-cache-dir --break-system-packages numpy pandas xarray netCDF4 
 
 # Install R packages (CRAN + GitHub)
 RUN Rscript -e "install.packages(c('tidyverse', 'ncdf4', 'data.table', 'climate', 'thunder', 'reticulate'))"
