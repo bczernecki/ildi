@@ -39,9 +39,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN Rscript -e "install.packages(c('tidyverse', 'ncdf4', 'data.table', 'climate', 'thunder'), repos='https://cloud.r-project.org')"
 
 # Set up RStudio Server configuration
-# Create rstudio user with password (you can change this)
-RUN useradd -m -s /bin/bash rstudio && \
-    echo "rstudio:rstudio" | chpasswd && \
+# Set password for existing rstudio user and add to sudo group
+RUN echo "rstudio:rstudio" | chpasswd && \
     adduser rstudio sudo
 
 # Set working directory
