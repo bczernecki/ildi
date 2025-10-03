@@ -32,12 +32,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Upgrade pip and install Python scientific stack
-#RUN pip3 install --no-cache-dir --upgrade pip \
-#    && pip3 install --no-cache-dir --break-system-packages numpy pandas xarray netCDF4 matplotlib
+RUN pip3 install --no-cache-dir --upgrade pip \
+    && pip3 install --no-cache-dir --break-system-packages numpy pandas xarray netCDF4 matplotlib
 
 # Install R packages (CRAN + GitHub)
-RUN Rscript -e "install.packages(c('tidyverse', 'ncdf4', 'data.table', 'climate', 'thunder'), repos='https://cloud.r-project.org')"
-
+RUN Rscript -e "install.packages(c('tidyverse', 'ncdf4', 'data.table', 'climate', 'thunder', 'reticulate'))"
+RUN Rscript -e "install.packages('climate', repos='https://cloud.r-project.org')" #default repo is outdated
 # Set up RStudio Server configuration
 # Set password for existing rstudio user and add to sudo group
 RUN echo "rstudio:rstudio" | chpasswd && \
